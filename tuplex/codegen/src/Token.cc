@@ -108,6 +108,8 @@ std::ostream& operator<< (std::ostream& os, const TokenType tt)
 
 
 TokenType stringToToken(const std::string& s) {
+
+    // TODO(yash): add IS here and IS NOT.
     if(s == "in")
         return TokenType::IN;
     if(s == "notin")
