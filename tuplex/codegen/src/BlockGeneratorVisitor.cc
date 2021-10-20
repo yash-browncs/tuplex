@@ -957,6 +957,35 @@ namespace tuplex {
             assert(!leftType.isOptional());
             assert(!rightType.isOptional());
 
+            if(tt == TokenType::IS || tt == TokenType::ISNOT) {
+                bool invertResult = (tt == TokenType::ISNOT);
+
+                std::unordered_set<python::Type> validTypes = {python::Type::BOOLEAN};
+                if (!(validTypes.count(leftType) && validTypes.count(rightType))) {
+                    std::stringstream ss;
+                    ss << "Could not generate is comparison for types "
+                       << leftType.desc()
+                       << " " << opToString(tt) << " "
+                       << rightType.desc();
+                    error(ss.str());
+                    // return TRUE as dummy constant to continue tracking process
+                    return _env->boolConst(true);
+                }
+                
+                if(leftType == python::Type::NULLVALUE && rightType == python::Type::NULLVALUE) {
+                    return _env->boolConst(true);
+                }
+
+                // comparison of None with boolean is always False.
+                if(leftType != rightType) {
+                    return _env->boolConst(false);
+                }
+
+                // at this point we are doing an is comparison between booleans.
+                return invertResult ? _env->upcastToBoolean(builder, builder.CreateNot(builder.CreateAnd(L, R))) 
+                                        : _env->upcastToBoolean(builder, builder.CreateAnd(L, R));                
+            }   
+
             assert(L);
             assert(R);
             // comparison of values without null

@@ -621,32 +621,3 @@ TEST_F(DataSetTest, LenEmptyListDictTuple) {
     EXPECT_EQ(res[0].getInt(0), 0);
     EXPECT_EQ(res[1].getInt(0), 0);
 }
-
-TEST_F(DataSetTest, IsKeywordTest) {
-    using namespace tuplex;
-
-    // ContextOptions co = testOptions();
-    // co.set("tuplex.partitionSize", "100B");
-    // co.set("tuplex.executorMemory", "1MB");
-    // co.set("tuplex.useLLVMOptimizer", "false");
-
-    // need option type for none.
-
-    Context c(microTestOptions());
-    Row row1(Field(option(1)));
-    Row row2(Field(option(2)));
-    Row row3(Field(option(3)));
-    Row row4(Field(option<int64_t::None>()));
-    Row row5(Field(option(4)));
-
-    auto m = c.parallelize({row1, row2, row3, row4, row5})
-            .map(UDF("lambda x: x is None")).collectAsVector();
-
-
-    EXPECT_EQ(m.size(), 5);
-    for(int i = 0; i < m.size(); i++) {
-        // TODO check type, check elements, check content.
-        // row to python string
-    }
-
-}
