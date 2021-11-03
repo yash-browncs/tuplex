@@ -112,7 +112,8 @@ FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tuplex/utils/__init__.py
         ${CMAKE_CURRENT_SOURCE_DIR}/tuplex/utils/globs.py
         DESTINATION ${PYTHON_DIST_DIR}/tuplex/utils)
 
-FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_tuples.py
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_is.py
+          ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_tuples.py
           ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_arithmetic.py
           ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_metrics.py
           ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_logical.py
