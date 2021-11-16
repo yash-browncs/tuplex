@@ -961,7 +961,13 @@ namespace tuplex {
             assert(R);
 
             if(tt == TokenType::IS || tt == TokenType::ISNOT) {
-                assert(leftType == python::Type::BOOLEAN || rightType == python::Type::BOOLEAN);
+                if(leftType != python::Type::BOOLEAN && rightType != python::Type::BOOLEAN) {
+                    _lfb->addException(builder, ExceptionCode::NORMALCASEVIOLATION, _env->i1Const(true));
+                    _logger.warn("is keyword not supported with non-none or non-boolean types");
+                    
+                    // return TRUE as dummy constant to continue tracking process
+                    return _env->boolConst(true);
+                }
                 // one of the types must be boolean, otherwise compareInst with _isnull would've taken care.
                 if((leftType == python::Type::BOOLEAN) != (rightType == python::Type::BOOLEAN)) {
                     // one of the types is boolean, other isn't. comparison results in false.

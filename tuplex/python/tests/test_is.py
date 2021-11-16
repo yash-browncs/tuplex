@@ -26,6 +26,10 @@ class TestIs(TestCase):
     #     res = self.c.parallelize([None, 255, 400, False, 2.3]).map(lambda x: x is None).collect()
     #     self.assertEqual(res, [True, False, False, False, False])
 
+    def test_failingIs(self):
+        res = self.c.parallelize([1, 2, 3]).map(lambda x: x is 2).collect()
+        self.assertEqual(res, [True, False, False, False, False])
+
     def test_mixedIsNotNone(self):
         res = self.c.parallelize([None, None, None]).map(lambda x: x is not None).collect()
         self.assertEqual(res, [False, False, False])
