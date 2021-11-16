@@ -966,7 +966,7 @@ namespace tuplex {
                     _logger.warn("is keyword not supported with non-none or non-boolean types");
                     
                     // return TRUE as dummy constant to continue tracking process
-                    return _env->boolConst(true);
+                    return _env->boolConst(tt == TokenType::ISNOT);
                 }
                 // one of the types must be boolean, otherwise compareInst with _isnull would've taken care.
                 if((leftType == python::Type::BOOLEAN) != (rightType == python::Type::BOOLEAN)) {
