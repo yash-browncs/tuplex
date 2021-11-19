@@ -817,7 +817,7 @@ namespace tuplex {
         }
 
         auto tasks = createLoadAndTransformToMemoryTasks(tstage, _options, syms->functor);
-        auto completedTasks = performTasks(tasks);
+        auto completedTasks = performTasks(tasks); // IMPORTANT FUNCTION
 
         // Note: this doesn't work yet because of the globals.
         // to make this work, need better global mapping...

@@ -46,7 +46,7 @@ namespace tuplex {
             // 3-stage typing
             // 1. try to type statically by simply annotating the AST
             logger.info("performing static typing for UDF in operator " + name());
-            bool success = _udf.hintInputSchema(parentSchema, false, false);
+            bool success = _udf.hintInputSchema(parentSchema, false, false); // IMPORTANT LINE
             if(!success) {
 
                 _udf.clearCompileErrors();

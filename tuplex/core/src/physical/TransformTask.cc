@@ -21,7 +21,7 @@ extern "C" {
     static int64_t w2mCallback(tuplex::TransformTask* task, uint8_t* buf, int64_t bufSize) {
         assert(task);
         assert(dynamic_cast<tuplex::TransformTask*>(task));
-        return task->writeRowToMemory(buf, bufSize);
+        return task->writeRowToMemory(buf, bufSize); // BREAKPOINT LINE.
     }
 
     static int64_t w2fCallback(tuplex::TransformTask* task, uint8_t* buf, int64_t bufSize) {
